@@ -1,12 +1,16 @@
+// /lib/supabase.js
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseKey) {
-  console.warn('SUPABASE env vars not set');
+if (!SUPABASE_URL) {
+  console.warn('Missing SUPABASE_URL env var');
 }
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+export const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+export const supabaseAnon = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-export default supabase;
+// default export optionally
+export default supabaseAdmin;
