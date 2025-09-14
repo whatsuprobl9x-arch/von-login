@@ -1,0 +1,21 @@
+:root {
+  --bg: #03030a;
+  --panel: #0b1220;
+  --accent: #0b63ff;
+  --muted: #9aa4b2;
+  --text: #e6eef6;
+}
+*{box-sizing:border-box}
+html,body,#root{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial}
+body{background:linear-gradient(180deg,var(--bg),#02102a);color:var(--text)}
+.container{max-width:980px;margin:28px auto;padding:16px}
+.card{background:var(--panel);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+.btn{background:var(--accent);color:white;padding:10px 12px;border-radius:8px;border:none;cursor:pointer}
+.input{width:100%;padding:10px;border-radius:8px;border:1px solid #122034;background:#07121a;color:var(--text)}
+.small{font-size:13px;color:var(--muted)}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.sidebar{width:220px;padding:12px;background:#07111a;border-radius:10px;height:calc(100vh - 56px);position:fixed;left:16px;top:28px}
+.content{margin-left:260px;padding:28px}
+.link{display:block;padding:8px 6px;color:var(--text);text-decoration:none;border-radius:6px}
+.link:hover{background:#0d1b2a}
+.note{background:#081625;padding:10px;border-radius:8px;color:var(--muted);font-size:13px}
