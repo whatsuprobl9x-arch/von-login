@@ -1,4 +1,5 @@
-import supabase from '../../lib/supabase.js';
+// /api/admin/users.js
+import { supabaseAdmin } from '../../lib/supabase.js';
 import { verifyTokenFromHeader } from '../_auth_helpers.js';
 
 export default async function handler(req, res) {
@@ -7,7 +8,7 @@ export default async function handler(req, res) {
   if (v.payload.role !== 'admin') return res.status(403).json({ message: 'Admins only' });
 
   try {
-    const { data, error } = await supabase.from('users').select('id,email,role,meta');
+    const { data, error } = await supabaseAdmin.from('users').select('id,email,role,meta');
     if (error) return res.status(500).json({ message: 'DB error', detail: error.message });
     return res.json({ users: data || [] });
   } catch (e) {
