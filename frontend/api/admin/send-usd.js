@@ -1,4 +1,5 @@
-import supabase from '../../lib/supabase.js';
+// /api/admin/send-usd.js
+import { supabaseAdmin } from '../../lib/supabase.js';
 import { verifyTokenFromHeader } from '../_auth_helpers.js';
 
 export default async function handler(req, res) {
@@ -11,7 +12,9 @@ export default async function handler(req, res) {
   if (!to_email || amount == null) return res.status(400).json({ message: 'Missing to_email or amount' });
 
   try {
-    await supabase.from('transactions').insert([{ to_email, amount, type: 'usd', created_at: new Date().toISOString() }]);
-  } catch(e){}
+    await supabaseAdmin.from('transactions').insert([{ to_email, amount, type: 'usd', created_at: new Date().toISOString() }]);
+  } catch (e) {
+    // ignore if table missing
+  }
   return res.json({ message: 'USD sent (fake)', to_email, amount });
 }
