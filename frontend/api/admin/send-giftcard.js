@@ -1,4 +1,5 @@
-import supabase from '../../lib/supabase.js';
+// /api/admin/send-giftcard.js
+import { supabaseAdmin } from '../../lib/supabase.js';
 import { verifyTokenFromHeader } from '../_auth_helpers.js';
 
 export default async function handler(req, res) {
@@ -11,7 +12,7 @@ export default async function handler(req, res) {
   if (!to_email || !code) return res.status(400).json({ message: 'Missing to_email or code' });
 
   try {
-    await supabase.from('giftcards').insert([{ to_email, code, created_at: new Date().toISOString() }]);
-  } catch(e){}
+    await supabaseAdmin.from('giftcards').insert([{ to_email, code, created_at: new Date().toISOString() }]);
+  } catch (e) {}
   return res.json({ message: 'Gift card sent (recorded)', to_email, code });
 }
