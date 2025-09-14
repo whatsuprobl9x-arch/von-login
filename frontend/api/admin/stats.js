@@ -1,4 +1,5 @@
-import supabase from '../../lib/supabase.js';
+// /api/admin/stats.js
+import { supabaseAdmin } from '../../lib/supabase.js';
 import { verifyTokenFromHeader } from '../_auth_helpers.js';
 
 export default async function handler(req, res) {
@@ -7,8 +8,10 @@ export default async function handler(req, res) {
   if (v.payload.role !== 'admin') return res.status(403).json({ message: 'Admins only' });
 
   try {
-    const { data } = await supabase.from('contents').select('id', { count: 'exact' });
-    const total = Array.isArray(data) ? data.length : 0;
+    const { data, error, count } = await supabaseAdmin
+      .from('contents')
+      .select('*', { count: 'exact' });
+    const total = typeof count === 'number' ? count : (Array.isArray(data) ? data.length : 0);
     return res.json({ totalContent: total });
   } catch (e) {
     return res.json({ totalContent: 0, notice: 'Could not fetch contents (table may not exist)' });
